@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="src/styles/style.css">
+</head>
+<body>
+
+    <nav>
+        <h1>Tusker</h1>
+        <button>Create Task</button>
+    </nav>
+
+    <main class="main-container">
+
+        <ul class="tasks-list">
+
+        <li class="task">
+            <span>Learn JavaScript</span>
+
+            <div class="actions">
+                <button class="complete">✓</button>
+                <button class="edit">Edit</button>
+                <button class="delete">Delete</button>
+            </div>
+        </li>
+
+        <li class="task">
+            <span>Build Task Manager</span>
+
+            <div class="actions">
+                <button class="complete">✓</button>
+                <button class="edit">Edit</button>
+                <button class="delete">Delete</button>
+            </div>
+        </li>
+
+        </ul>
+        
+    </main>
+
+
+    <section  id="form-section">
+
+        <div class="form">
+            <form >
+                <label for="task">Task Title </label>
+                <input id="task" required type="text" placeholder="Enter your task title here">
+                <select name="" id="">
+                    <option value="Apple">Apple</option>
+                    <option value="Mango">Mango</option>
+                    <option value="Banana">Banana</option>
+                </select>
+
+                <div class="buttons">
+                    <button id="form-back-button" class="back-button">Back</button>
+                    <button  class="submit-button" type="submit">Add task</button>
+                </div>
+            </form>
+        </div>
+
+    </section>
+
+
+
+
+    <script src="src/scripts/script.js"></script>
+</body>
+</html>
