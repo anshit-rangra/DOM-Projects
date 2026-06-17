@@ -17,8 +17,11 @@
 
         <ul class="tasks-list">
 
-        <li class="task">
-            <span>Learn JavaScript</span>
+        <!-- <li class="task">
+            <div class="task-info">
+                <span class="task-name">Learn JavaScript</span>
+                <button class="priority high-priority">High</button>
+            </div>
 
             <div class="actions">
                 <button class="complete">✓</button>
@@ -28,14 +31,17 @@
         </li>
 
         <li class="task">
-            <span>Build Task Manager</span>
+            <div class="task-info">
+                <span class="task-name">Build Task Manager</span>
+                <button class="priority medium-priority">Medium</button>
+            </div>
 
             <div class="actions">
                 <button class="complete">✓</button>
                 <button class="edit">Edit</button>
                 <button class="delete">Delete</button>
             </div>
-        </li>
+        </li> -->
 
         </ul>
         
@@ -49,9 +55,9 @@
                 <label for="task">Task Title </label>
                 <input id="task" required type="text" placeholder="Enter your task title here">
                 <select name="" id="">
-                    <option value="Apple">Apple</option>
-                    <option value="Mango">Mango</option>
-                    <option value="Banana">Banana</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
                 </select>
 
                 <div class="buttons">
