@@ -1,28 +1,38 @@
-function addLiElem(parent, content) {
-    const li = document.createElement("li")
-    li.innerHTML = `
+
+
+class Ul {
+
+    constructor(ul) {
+        this.ul = ul;
+    }
+
+    addLiElem( content) {
+        const li = document.createElement("li")
+        li.innerHTML = `
                     <h4> ${content} </h4>
 
                     <div class="functions">
                         <input type="checkbox" id="check">
                         <i class="ri-delete-bin-line" id="delete"></i>
                     </div>
-        `
+                `
 
-    li.classList.add("tasks")
+        li.classList.add("tasks")
 
-    parent.appendChild(li)
-}
+        this.ul.appendChild(li)
+        }
 
-function removeElem(li) {
+ removeElem(li) {
     
     li.remove()
     
 }
 
-function completeTask(li){
+ completeTask(li){
     let task = li.querySelector("h4")
     task.classList.toggle("complete")
+}
+
 }
 
 

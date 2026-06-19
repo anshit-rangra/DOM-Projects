@@ -1,66 +1,55 @@
-let taskListElem = document.querySelector(".tasks-list")
+let taskListElem = document.querySelector(".tasks-list");
 
+const taskData = getLocal("tasks") || [];
 
-const taskData = getLocal("tasks") || []
-
+console.log(taskData);
 
 taskData.forEach((task, idx) => {
-    createTaskElement(task)
-})
+  createTaskElement(task);
+});
 
-
-
-
-let createTaskButton = document.querySelector("nav button")
-let formSection = document.querySelector("#form-section")
-
-
+let createTaskButton = document.querySelector("nav button");
+let formSection = document.querySelector("#form-section");
 
 createTaskButton.addEventListener("click", function () {
-    formSection.style.display = "flex"
+  formSection.style.display = "flex";
+});
 
-})
-
-let formBackButton = document.querySelector("#form-back-button")
+let formBackButton = document.querySelector("#form-back-button");
 
 formBackButton.addEventListener("click", function (e) {
-    e.preventDefault()
-    formSection.style.display = "none";
-})
+  e.preventDefault();
+  formSection.style.display = "none";
+});
 
-let form = document.querySelector(".form form")
-let task = document.querySelector(".form form input")
-let option = document.querySelector(".form form select")
+let form = document.querySelector(".form form");
+let task = document.querySelector(".form form input");
+let option = document.querySelector(".form form select");
 
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
 
-form.addEventListener("submit", function(e) {
-    e.preventDefault();
+  let obj = {
+    id: taskData.length,
+    task: task.value.trim(),
+    priority: option.value,
+    completed: false,
+  };
 
-    
-    let obj = {
-        id: taskData.length,
-        task : task.value,
-        priority: option.value,
-        completed: false
-    }
+  createTaskElement(obj);
 
-    createTaskElement(obj)
-    
-    taskData.push(obj)
+  taskData.push(obj);
 
-    setLocal(taskData)
+  setLocal(taskData);
 
+  task.value = ""
 
-    formSection.style.display = "none"
-})
-
+  formSection.style.display = "none";
+});
 
 function createTaskElement(data) {
-
-
-
-    let li = document.createElement("li")
-    li.innerHTML = `
+  let li = document.createElement("li");
+  li.innerHTML = `
             <div class="task-info">
                 <span class="task-name">${data.task}</span>
                 <button class="priority ${data.priority}-priority">${data.priority}</button>
@@ -71,69 +60,68 @@ function createTaskElement(data) {
                 <button data-type="edit" class="edit">Edit</button>
                 <button data-type="delete" class="delete">Delete</button>
             </div>
-    `
+    `;
 
-    li.dataset.id = taskData.length
+  li.dataset.id = data.id;
 
-    if(data?.completed){
-        li.querySelector(".task-name").style.textDecoration = "line-through"
-    }
+  if (data?.completed) {
+    li.querySelector(".task-name").style.textDecoration = "line-through";
+  }
 
-    li.classList.add("task")
-    taskListElem.appendChild(li)
-
+  li.classList.add("task");
+  taskListElem.appendChild(li);
 }
 
+taskListElem.addEventListener("click", function (e) {
+  if (e.target.dataset.type === "complete") {
+    setComplete(e.target);
+  } else if (e.target.dataset.type === "delete") {
+    deleteTask(e.target);
+  }
+});
 
-taskListElem.addEventListener("click", function(e){
-    
-    if(e.target.dataset.type === "complete"){
-        setComplete(e.target)
+function setComplete(elem) {
+  let grandParent = elem.parentElement.parentElement;
 
-    } else if (e.target.dataset.type === "delete"){
-        deleteTask(e.target)
-    }
+  let id = grandParent.dataset.id;
 
-})
 
-function setComplete(elem){
-    let grandParent = elem.parentElement.parentElement
-    grandParent.querySelector(".task-name").style.textDecoration = "line-through"
+  taskData[id].completed = !taskData[id].completed;
 
-    let id = grandParent.dataset.id;
-    
-    taskData[id].completed = !taskData[id].completed;
-    
+    if (taskData[id].completed) {
+    grandParent.querySelector(".task-name").style.textDecoration =
+      "line-through";
+  } else {
 
-    setLocal(taskData)
+    grandParent.querySelector(".task-name").style.textDecoration = "none"
+  }
+
+
+  setLocal(taskData);
 }
 
-function deleteTask(elem){
+function deleteTask(elem) {
+  let grandParent = elem.parentElement.parentElement;
+  let id = grandParent.dataset.id;
 
-    let grandParent = elem.parentElement.parentElement
-    let id = grandParent.dataset.id;
+  grandParent.remove();
 
+  console.log(id);
 
-    grandParent.remove()
+  taskData.splice(id, 1);
 
-    console.log(id)
+  console.log(taskData);
 
-    taskData.splice(id, 1)
-
-    console.log(taskData)
-
-    setLocal(taskData)
-
+  setLocal(taskData);
 }
-
 
 function setLocal(data) {
-    data = JSON.stringify(data)
-    localStorage.setItem("tasks", data)
+  data = JSON.stringify(data);
+  localStorage.setItem("tasks", data);
 }
 
-function getLocal(key){
-    let data = localStorage.getItem(key)
-    data = JSON.parse(data)
-    return data
+function getLocal(key) {
+  let data = localStorage.getItem(key);
+  data = JSON.parse(data);
+  return data;
 }
