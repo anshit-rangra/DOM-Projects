@@ -116,6 +116,76 @@ nav {
     }
 }
 
+#edit-form-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(7, 7, 7, 0.341);
+    backdrop-filter: blur(10px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    .edit-form {
+        background-color: rgb(0, 166, 255);
+        padding: 3rem;
+        border-radius: 20px;
+
+        label {
+            font-size: 1.6rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        input {
+            font-size: 1.4rem;
+            padding: 7px 1rem;
+            outline: none;
+            border-radius: 20px;
+            width: 30rem;
+        }
+
+        select {
+            font-size: 1.4rem;
+            outline: none;
+            border-radius: 20px;
+            padding: 5px 1rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            margin: 1rem 0;
+
+            .submit-button , .back-button {
+                display: block;
+                font-size: 1.4rem;
+                padding: 12px 2rem;
+                border-radius: 20px;
+                cursor: pointer;
+                background-color: lime;
+                border: none;
+                transition: all 0.3s ease;
+                font-weight: 500;
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+
+            .back-button {
+                background-color: red;
+            }
+        }
+    }
+}
+
 main {
     padding: 2rem;
 }

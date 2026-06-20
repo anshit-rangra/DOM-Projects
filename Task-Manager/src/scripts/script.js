@@ -2,9 +2,7 @@ let taskListElem = document.querySelector(".tasks-list");
 
 const taskData = getLocal("tasks") || [];
 
-console.log(taskData);
-
-taskData.forEach((task, idx) => {
+taskData.forEach((task) => {
   createTaskElement(task);
 });
 
@@ -22,15 +20,18 @@ formBackButton.addEventListener("click", function (e) {
   formSection.style.display = "none";
 });
 
-let form = document.querySelector(".form form");
-let task = document.querySelector(".form form input");
-let option = document.querySelector(".form form select");
+const form = document.querySelector(".form form");
+const task = document.querySelector(".form form input");
+const option = document.querySelector(".form form select");
+const editForm = document.querySelector("#edit-form-section")
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
+  let randomId = Math.floor((Math.random() * 1000) + 1)
+
   let obj = {
-    id: taskData.length,
+    id: randomId,
     task: task.value.trim(),
     priority: option.value,
     completed: false,
@@ -77,6 +78,13 @@ taskListElem.addEventListener("click", function (e) {
     setComplete(e.target);
   } else if (e.target.dataset.type === "delete") {
     deleteTask(e.target);
+  } else if (e.target.dataset.type === "edit"){
+
+
+    editContainer(e.target)
+
+    // editTask(e.target)
+
   }
 });
 
@@ -86,9 +94,14 @@ function setComplete(elem) {
   let id = grandParent.dataset.id;
 
 
-  taskData[id].completed = !taskData[id].completed;
 
-    if (taskData[id].completed) {
+  let currentTask = taskData.find((elem) => {
+    return elem.id == id
+  })
+
+  currentTask.completed = !currentTask.completed
+
+    if (currentTask.completed) {
     grandParent.querySelector(".task-name").style.textDecoration =
       "line-through";
   } else {
@@ -106,11 +119,13 @@ function deleteTask(elem) {
 
   grandParent.remove();
 
-  console.log(id);
+  let removeIdx = taskData.findIndex(function(elem, idx) {
+    return elem.id == id
+  })
 
-  taskData.splice(id, 1);
 
-  console.log(taskData);
+  taskData.splice(removeIdx, 1);
+
 
   setLocal(taskData);
 }
@@ -124,4 +139,62 @@ function getLocal(key) {
   let data = localStorage.getItem(key);
   data = JSON.parse(data);
   return data;
+}
+
+
+function editContainer(elem){
+
+    editForm.style.display = "flex"
+
+    let editFormBackButton = editForm.querySelector("#edit-form-back-button")
+    let formEdit = editForm.querySelector("form")
+    let input = formEdit.querySelector("input")
+    let option = formEdit.querySelector("select")
+
+
+    editFormBackButton.addEventListener("click", () => {
+      editForm.style.display = "none"
+    })
+
+    formEdit.addEventListener("submit", (e) => {
+      e.preventDefault();
+      
+      editTask(elem, input.value.trim(), option.value)
+      editForm.style.display = "none"
+
+    })
+
+
+
+}
+
+
+function editTask(elem, taskInput, priority) {
+  let grandParent = elem.parentElement.parentElement;
+  let id = grandParent.dataset.id;
+
+  let taskIndex = taskData.findIndex(function(elem, idx) {
+    return elem.id == id
+  })
+
+  let obj = {
+    id: elem.id,
+    task: taskInput,
+    priority: priority,
+    completed: elem.completed,
+  };
+
+  taskData.splice(taskIndex, 1, obj)
+
+  grandParent.querySelector(".task-name").textContent = obj.task;
+  grandParent.querySelector(".priority").textContent= obj.priority;
+
+  grandParent.querySelector(".priority").classList.remove(`${elem.priority}-priority`)
+
+  grandParent.querySelector(".priority").classList.add(`${obj.priority}-priority`)
+
+  
+
+  setLocal(taskData)
+
 }
