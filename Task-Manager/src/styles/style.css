@@ -265,3 +265,16 @@ main {
         background: crimson;
         color: white;
     }
+
+#theme-button {
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+
+    border-radius: 50%;
+    border: 1px solid blue;
+    padding: 1rem;
+    height: 4rem;
+    width: 4rem;
+    cursor: pointer;
+}
