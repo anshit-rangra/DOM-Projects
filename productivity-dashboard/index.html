@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Productivity-Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
+    <header class="theme-header shadow-md">
+      <div
+        class="max-w-7xl mx-auto px-3 py-2 flex iteam-center justify-between"
+      >
+        <div>
+          <h1 class="text-2xl font-bold theme-text">Productivity Dashboard</h1>
+          <p class="text-gray-500">Stay organized and productive every day</p>
+        </div>
+        <div class="flex justify-end gap-10">
+          <button class="px-4 py-2 rounded-lg transition cursor-pointer" id="theme-btn">
+            <i class="ri-moon-line text-lg"></i>
+          </button>
+          
+        </div>
+      </div>
+    </header>
+    <main>
+      <section class="w-full min-h-screen md:h-screen relative overflow-hidden">
+        <img
+          id="light-bg"
+          class="absolute inset-0 w-full h-full object-cover -z-10"
+          src="https://plus.unsplash.com/premium_photo-1733317236155-b0e1a2930f37?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt=""
+        />
+
+        <img
+          id="dark-bg"
+          class="absolute inset-0 w-full h-full object-cover hidden -z-10"
+          src="https://images.unsplash.com/photo-1475274047050-1d0c0975c63e?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt=""
+        />
+        <div class="w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between px-4 md:px-10 lg:px-16 gap-6 md:gap-0 py-6 md:py-0">
+          <div
+            class="w-full md:w-[45%] lg:w-[40%] xl:w-[35%] max-w-lg md:max-w-none h-auto md:h-[78%] rounded-2xl theme-card backdrop-blur-lg border border-white/20 p-6 md:p-8 shadow-xl flex flex-col justify-between gap-3"
+          >
+            <div class="flex justify-between items-start">
+              <div>
+                <p id="greeting" class="text-xs md:text-sm font-medium opacity-60">Good Morning</p>
+                <h2
+                  id="widget-location"
+                  class="text-xl md:text-2xl font-bold tracking-tight mt-1"
+                >
+                  Loading...
+                </h2>
+                <p id="widget-date" class="text-xs md:text-sm opacity-50 font-medium mt-0.5">
+                  Date loading...
+                </p>
+              </div>
+              <div id="widget-icon" class="text-3xl md:text-4xl">
+                <i class="ri-sun-line"></i>
+              </div>
+            </div>
+
+            <div
+              class="grid grid-cols-2 gap-4 border-t border-white/10 pt-5"
+            >
+              <div>
+                <span
+                  class="text-[10px] md:text-xs uppercase tracking-widest opacity-40 font-semibold"
+                  >Current Time</span
+                >
+                <time
+                  id="widget-time"
+                  class="block text-3xl md:text-4xl font-extrabold tracking-tight font-mono theme-text mt-1"
+                  >00:00:00</time
+                >
+              </div>
+              <div class="text-right">
+                <span
+                  class="text-[10px] md:text-xs uppercase tracking-widest opacity-40 font-semibold"
+                  >Weather</span
+                >
+                <div class="block mt-1">
+                  <span id="widget-temp" class="text-3xl md:text-4xl font-black theme-text"
+                    >--°C</span
+                  >
+                  <p
+                    id="widget-condition"
+                    class="text-[10px] md:text-xs opacity-50 capitalize font-medium mt-0.5"
+                  >
+                    Loading sky...
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div id="quote-home" class="pt-4 border-t border-white/10">
+              <p id="quote-text-home" class="text-xs md:text-sm italic font-medium leading-relaxed opacity-90">"Loading inspiration..."</p>
+              <p id="quote-author-home" class="mt-1 text-[10px] md:text-xs font-semibold opacity-50"></p>
+            </div>
+          </div>
+          <div
+            class="w-full md:w-[50%] h-auto md:h-[60%] flex flex-wrap justify-center items-center gap-5 md:gap-8"
+          >
+            <div
+              id="todo-btn"
+              class="size-22 rounded-2xl cursor-pointer flex flex-col items-center justify-center font-bold shadow-lg hover:shadow-xl hover:scale-110 hover:-translate-y-1 transition-all duration-300 border border-white/20 backdrop-blur-sm theme-card"
+            >
+              <i class="ri-list-check-3 text-2xl text-blue-400"></i>
+              <span class="text-xs theme-text mt-1">Todo</span>
+            </div>
+
+            <div
+              id="todo-section"
+              class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50"
+            >
+              <div
+                class="theme-card rounded-xl shadow-xl w-[850px] h-[550px] flex overflow-hidden"
+              >
+                <div class="w-2/5 theme-border border-r p-4 overflow-y-auto">
+                  <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold theme-text">My Tasks</h2>
+
+                    <button id="close-todo" class="text-2xl theme-text cursor-pointer">
+                      &times;
+                    </button>
+                  </div>
+
+                  <div id="task-list" class="space-y-3"></div>
+                </div>
+
+                <div class="w-3/5 p-6">
+                  <h2 class="text-2xl font-bold mb-6 theme-text">
+                    Add New Task
+                  </h2>
+
+                  <label class="font-semibold theme-text"> Title </label>
+
+                  <input
+                    id="task-title"
+                    type="text"
+                    placeholder="Enter task title"
+                    class="theme-input w-full border rounded p-2 mt-1 mb-4"
+                  />
+
+                  <label class="font-semibold theme-text"> Description </label>
+
+                  <textarea
+                    id="task-desc"
+                    rows="8"
+                    placeholder="Enter description..."
+                    class="theme-input w-full border rounded p-2 mt-1 mb-6 resize-none"
+                  ></textarea>
+
+                  <button
+                    id="add-task"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded cursor-pointer"
+                  >
+                    Add Task
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div
+              id="planner-btn"
+              class="size-22 rounded-2xl cursor-pointer flex flex-col items-center justify-center font-bold shadow-lg hover:shadow-xl hover:scale-110 hover:-translate-y-1 transition-all duration-300 border border-white/20 backdrop-blur-sm theme-card"
+            >
+              <i class="ri-calendar-check-line text-2xl text-purple-400"></i>
+
+              <span class="text-xs theme-text mt-1">Planner</span>
+            </div>
+
+            <div
+              id="planner-section"
+              class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50"
+            >
+              <div
+                class="theme-card w-[900px] h-[600px] rounded-xl shadow-xl flex overflow-hidden"
+              >
+                <div class="w-2/5 theme-border border-r p-4 overflow-y-auto">
+                  <div class="flex justify-between items-center mb-5">
+                    <h2 class="text-xl font-bold theme-text">Today's Plans</h2>
+
+                    <button
+                      id="close-planner"
+                      class="text-2xl theme-text hover:text-red-500 cursor-pointer"
+                    >
+                      &times;
+                    </button>
+                  </div>
+
+                  <div id="planner-list" class="space-y-3"></div>
+                </div>
+
+                <div class="w-3/5 p-6 overflow-y-auto">
+                  <h2 class="text-2xl font-bold mb-6 theme-text">
+                    Add Daily Plan
+                  </h2>
+
+                  <label class="font-semibold theme-text"> Date </label>
+
+                  <input
+                    id="plan-date"
+                    type="date"
+                    class="theme-input w-full border rounded p-2 mt-1 mb-4"
+                  />
+
+                  <label class="font-semibold theme-text"> Time </label>
+
+                  <input
+                    id="plan-time"
+                    type="time"
+                    class="theme-input w-full border rounded p-2 mt-1 mb-4"
+                  />
+
+                  <label class="font-semibold theme-text"> Title </label>
+
+                  <input
+                    id="plan-title"
+                    type="text"
+                    placeholder="Meeting..."
+                    class="theme-input w-full border rounded p-2 mt-1 mb-4"
+                  />
+
+                  <label class="font-semibold theme-text"> Description </label>
+
+                  <textarea
+                    id="plan-desc"
+                    rows="5"
+                    placeholder="Description..."
+                    class="theme-input w-full border rounded p-2 mt-1 mb-4 resize-none"
+                  ></textarea>
+
+                  <label class="font-semibold theme-text"> Priority </label>
+
+                  <select
+                    id="plan-priority"
+                    class="theme-input w-full border rounded p-2 mt-1 mb-6"
+                  >
+                    <option>Low</option>
+                    <option selected>Medium</option>
+                    <option>High</option>
+                  </select>
+
+                  <button
+                    id="add-plan"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded cursor-pointer"
+                  >
+                    Add Plan
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div
+              id="timer-btn"
+              class="size-22 rounded-2xl cursor-pointer flex flex-col items-center justify-center font-bold shadow-lg hover:shadow-xl hover:scale-110 hover:-translate-y-1 transition-all duration-300 border border-white/20 backdrop-blur-sm theme-card"
+            >
+              <i class="ri-timer-line text-2xl text-emerald-400"></i>
+
+              <span class="text-xs theme-text mt-1">Timer</span>
+            </div>
+
+            <div
+              id="timer-section"
+              class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50"
+            >
+              <div class="theme-card w-[500px] rounded-xl shadow-xl p-6">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-bold theme-text">Work Timer</h2>
+
+                  <button id="close-timer" class="text-2xl theme-text cursor-pointer">
+                    &times;
+                  </button>
+                </div>
+
+                <div class="flex gap-3 mb-6">
+                  <button
+                    id="stopwatch-mode"
+                    class="bg-blue-600 text-white px-4 py-2 rounded cursor-pointer"
+                  >
+                    Stopwatch
+                  </button>
+
+                  <button id="timer-mode" class="theme-card px-4 py-2 rounded cursor-pointer">
+                    Timer
+                  </button>
+                </div>
+
+                <div
+                  id="display"
+                  class="text-6xl font-bold text-center my-8 theme-text"
+                >
+                  00:00:00
+                </div>
+
+                <div id="timer-input-box" class="hidden mb-5">
+                  <label class="font-semibold theme-text"> Set Minutes </label>
+
+                  <input
+                    id="minutes"
+                    type="number"
+                    placeholder="25"
+                    class="theme-input w-full border rounded p-2 mt-2"
+                  />
+                </div>
+
+                <div class="flex justify-center gap-3">
+                  <button
+                    id="start"
+                    class="bg-green-600 text-white px-5 py-2 rounded cursor-pointer"
+                  >
+                    Start
+                  </button>
+
+                  <button
+                    id="pause"
+                    class="bg-yellow-500 text-white px-5 py-2 rounded cursor-pointer"
+                  >
+                    Pause
+                  </button>
+
+                  <button
+                    id="reset"
+                    class="bg-red-600 text-white px-5 py-2 rounded cursor-pointer"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div
+              id="goal-btn"
+              class="size-22 rounded-2xl cursor-pointer flex flex-col items-center justify-center font-bold shadow-lg hover:shadow-xl hover:scale-110 hover:-translate-y-1 transition-all duration-300 border border-white/20 backdrop-blur-sm theme-card"
+            >
+              <i class="ri-focus-3-line text-2xl text-orange-400"></i>
+
+              <span class="text-xs theme-text mt-1">Goals</span>
+            </div>
+
+            <div
+              id="goal-section"
+              class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50"
+            >
+              <div
+                class="theme-card w-[850px] h-[550px] rounded-xl shadow-xl flex overflow-hidden"
+              >
+                <div class="w-2/5 theme-border border-r p-5 overflow-y-auto">
+                  <h2 class="text-xl font-bold mb-5 theme-text">
+                    Today's Goals
+                  </h2>
+
+                  <div id="goal-list" class="space-y-3"></div>
+                </div>
+
+                <div class="w-3/5 p-6">
+                  <div class="flex justify-between items-center mb-5">
+                    <h2 class="text-2xl font-bold theme-text">Add Goal</h2>
+
+                    <button id="close-goal" class="text-2xl theme-text cursor-pointer">
+                      &times;
+                    </button>
+                  </div>
+
+                  <label class="font-semibold theme-text"> Goal Title </label>
+
+                  <input
+                    id="goal-title"
+                    type="text"
+                    placeholder="Example: Complete React Project"
+                    class="theme-input w-full border rounded p-2 mt-1 mb-4"
+                  />
+
+                  <label class="font-semibold theme-text"> Target </label>
+
+                  <input
+                    id="goal-target"
+                    type="number"
+                    placeholder="Example: 5"
+                    class="theme-input w-full border rounded p-2 mt-1 mb-4"
+                  />
+
+                  <label class="font-semibold theme-text"> Unit </label>
+
+                  <select
+                    id="goal-unit"
+                    class="theme-input w-full border rounded p-2 mt-1 mb-4"
+                  >
+                    <option>Tasks</option>
+
+                    <option>Hours</option>
+
+                    <option>Pages</option>
+
+                    <option>Workout</option>
+                  </select>
+
+                  <button
+                    id="add-goal"
+                    class="bg-blue-600 text-white px-5 py-2 rounded cursor-pointer"
+                  >
+                    Add Goal
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div
+              id="streak-btn"
+              class="size-22 rounded-2xl cursor-pointer flex flex-col items-center justify-center font-bold shadow-lg hover:shadow-xl hover:scale-110 hover:-translate-y-1 transition-all duration-300 border border-white/20 backdrop-blur-sm theme-card"
+            >
+              <i class="ri-fire-line text-2xl text-rose-400"></i>
+
+              <span class="text-xs theme-text mt-1">Streak</span>
+            </div>
+
+            <div
+              id="streak-section"
+              class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50"
+            >
+              <div class="theme-card w-[600px] rounded-xl shadow-xl p-6">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-bold theme-text">🔥 Daily Streak</h2>
+
+                  <button id="close-streak" class="text-2xl theme-text cursor-pointer">
+                    &times;
+                  </button>
+                </div>
+
+                <div class="theme-card rounded-xl p-6 text-center">
+                  <p
+                    id="current-streak"
+                    class="text-5xl font-bold text-orange-500"
+                  >
+                    0
+                  </p>
+
+                  <p class="theme-muted mt-2">Current Streak</p>
+                </div>
+
+                <div class="mt-6">
+                  <h3 class="font-bold text-lg mb-3 theme-text">This Week</h3>
+
+                  <div id="week-days" class="grid grid-cols-7 gap-2"></div>
+                </div>
+
+                <button
+                  id="complete-day"
+                   class="mt-6 bg-green-600 text-white px-5 py-2 rounded cursor-pointer"
+                >
+                  Complete Today ✅
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="scripts/script.js"></script>
+  </body>
+</html>

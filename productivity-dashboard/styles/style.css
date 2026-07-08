@@ -1,0 +1,85 @@
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111;
+}
+
+::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 10px;
+}
+
+:root {
+  --text-color: #111827;
+  --card-bg: rgba(255, 255, 255, 0.25);
+  --header-bg: white;
+}
+
+.dark {
+  --text-color: #f8fafc;
+  --card-bg: rgba(255, 255, 255, 0.08);
+  --header-bg: #0f172a;
+}
+
+body {
+  color: var(--text-color);
+  transition: 0.4s ease;
+}
+
+.theme-header {
+  background-color: var(--header-bg);
+}
+
+.theme-card {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  transition: 0.4s ease;
+}
+
+.theme-text {
+  color: var(--text-color);
+}
+
+#widget-icon {
+  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.4));
+}
+
+#widget-time {
+  font-variant-numeric: tabular-nums;
+}
+
+#quote-home {
+  position: relative;
+}
+
+#quote-home::before {
+  content: "\201C";
+  font-size: 1.5rem;
+  line-height: 1;
+  opacity: 0.3;
+  position: absolute;
+  top: 0.2rem;
+  left: 0;
+}
+
+#quote-text-home {
+  padding-left: 1.2rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.size-22 {
+  width: 5.5rem;
+  height: 5.5rem;
+}
+
+@media (max-width: 768px) {
+  .size-22 {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+}
